@@ -1,0 +1,36 @@
+import { Cards } from 'nextra/components'
+import {
+  TeacherIcon,
+  GroupsIcon,
+  ScheduleIcon,
+  BuildingIcon
+} from '../../components/icons'
+
+# Использование библиотеки
+Создайте экземпляр класса:
+```csharp
+IClientSamgkApi api = new ClientSamgkApi();
+```
+
+<Cards>
+  <Cards.Card
+    icon={<TeacherIcon/>}
+    title="Преподаватели"
+    href="/ru/usage/teacher"
+  />
+  <Cards.Card
+    icon={<GroupsIcon/>}
+    title="Группы"
+    href="/ru/usage/groups"
+  />
+  <Cards.Card
+    icon={<BuildingIcon/>}
+    title="Кабинеты/Корпуса"
+    href="/ru/usage/cabs"
+  />
+  <Cards.Card
+    icon={<ScheduleIcon/>}
+    title="Расписание"
+    href="/ru/usage/schedule"
+  />
+</Cards>
