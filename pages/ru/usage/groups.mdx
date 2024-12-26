@@ -1,0 +1,47 @@
+import { Tabs } from 'nextra/components'
+
+# API Группы
+
+### Получить список всех групп
+```Groups.GetGroups``` вернет список всех имеющихся групп
+<Tabs items={['Синхронно', 'Асинхронно']}>
+  <Tabs.Tab>
+    ```csharp
+    var groups = api.Accounts.GetGroups();
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```csharp
+    var groups = await api.Accounts.GetGroupsAsync();
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+### Поиск конкретной группы
+```Groups.GetGroup``` попробует найти конкретную группу по названию
+<Tabs items={['Синхронно', 'Асинхронно']}>
+  <Tabs.Tab>
+    ```csharp
+    var group = api.Accounts.GetGroup("ИС-23-01");
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```csharp
+    var group = await api.Accounts.GetGroupAsync("ИС-23-01");
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+Или по ID
+<Tabs items={['Синхронно', 'Асинхронно']}>
+  <Tabs.Tab>
+    ```csharp
+    var group = api.Accounts.GetGroup(693);
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```csharp
+    var group = await api.Accounts.GetGroupAsync(693);
+    ```
+  </Tabs.Tab>
+</Tabs>

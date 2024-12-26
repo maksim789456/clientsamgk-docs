@@ -1,0 +1,47 @@
+import { Tabs } from 'nextra/components'
+
+# API Преподаватели
+
+### Получить список всех преподавателей
+```Accounts.GetTeachers``` вернет список всех имеющихся преподавателей
+<Tabs items={['Синхронно', 'Асинхронно']}>
+  <Tabs.Tab>
+    ```csharp
+    var teachers = api.Accounts.GetTeachers();
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```csharp
+    var teachers = await api.Accounts.GetTeachersAsync();
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+### Поиск конкретного преподавателя
+```Accounts.GetTeacher``` попробует найти конкретного преподавателя по ФИО
+<Tabs items={['Синхронно', 'Асинхронно']}>
+  <Tabs.Tab>
+    ```csharp
+    var teacher = api.Accounts.GetTeacher("Иванов Иван Иванович");
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```csharp
+    var teacher = await api.Accounts.GetTeacherAsync("Иванов Иван Иванович");
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+Или по ID
+<Tabs items={['Синхронно', 'Асинхронно']}>
+  <Tabs.Tab>
+    ```csharp
+    var teacher = api.Accounts.GetTeacher(2294);
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```csharp
+    var teacher = await api.Accounts.GetTeacherAsync(2294);
+    ```
+  </Tabs.Tab>
+</Tabs>

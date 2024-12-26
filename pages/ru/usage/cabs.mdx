@@ -1,0 +1,63 @@
+import { Tabs } from 'nextra/components'
+
+# API Кабинеты / Корпуса
+
+### Получить список всех кабинетов
+```Cabs.GetCabs``` вернет список всех имеющихся кабинетов
+<Tabs items={['Синхронно', 'Асинхронно']}>
+  <Tabs.Tab>
+    ```csharp
+    var cabs = api.Cabs.GetCabs();
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```csharp
+    var cabs = await api.Cabs.GetCabsAsync();
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+#### Получить список всех кабинетов для конкретного корпуса
+Можно ограничить выборку, если явно передать номер корпуса
+<Tabs items={['Синхронно', 'Асинхронно']}>
+  <Tabs.Tab>
+    ```csharp
+    var cabsOnlyIn5 = api.Cabs.GetCabs("5");
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```csharp
+    var cabsOnlyIn5 = await api.Cabs.GetCabsAsync("5");
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+### Поиск конкретного кабинета
+```Cabs.GetCab``` попробует найти конкретный кабинет по названию
+<Tabs items={['Синхронно', 'Асинхронно']}>
+  <Tabs.Tab>
+    ```csharp
+    var cab = api.Cabs.GetCab("5/515");
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```csharp
+    var cab = await api.Cabs.GetCabAsync("5/515");
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+### Получить список всех корпусов
+```Cabs.GetCampuses``` вернет список всех имеющихся корпусов
+<Tabs items={['Синхронно', 'Асинхронно']}>
+  <Tabs.Tab>
+    ```csharp
+    var сampuses = api.Cabs.GetCampuses();
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```csharp
+    var сampuses = await api.Cabs.GetCampusesAsync();
+    ```
+  </Tabs.Tab>
+</Tabs>
