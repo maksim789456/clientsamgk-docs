@@ -1,0 +1,115 @@
+import { Tabs, Callout } from 'nextra/components'
+
+# API Расписание
+
+## Формирование запроса
+```ScheduleQuery``` позволяет гибкий способ настройки параметров запроса расписания.
+При помощи Fluent API можно настроить критерии поиска и установить дополнительные настройки
+
+#### WithDate
+```ScheduleQuery.WithDate(DateOnly date)``` устанавливает конкретную дату за которую необходимо получить расписание
+```csharp
+var query = new ScheduleQuery()
+    .WithDate(new DateOnly(2024, 12, 16));
+```
+#### WithDateRange
+```ScheduleQuery.WithDateRange(DateOnly startDate, DateOnly endDate)``` устанавливает диапазон дат (включительно)
+за который необходимо получить расписание
+```csharp
+var dateStart = new DateOnly(2024, 12, 16);
+var dateEnd = new DateOnly(2024, 12, 17);
+
+var query = new ScheduleQuery()
+    .WithDateRange(dateStart, dateEnd);
+```
+#### WithEmployee
+```ScheduleQuery.WithEmployee(IResultOutIdentity employee)``` устанавливает преподавателя для которого необходимо получить расписание.
+Чтобы получить объект преподавателя воспользуйтесь [API Преподаватели](/ru/usage/teacher)
+```csharp
+var teacher = await api.Accounts.GetTeacherAsync("Иванов Иван Иванович");
+
+var query = new ScheduleQuery()
+    .WithEmployee(teacher);
+```
+#### WithGroup
+```ScheduleQuery.WithGroup(IResultOutGroup group)``` устанавливает группу для которой необходимо получить расписание.
+Чтобы получить объект группы воспользуйтесь [API Группы](/ru/usage/groups)
+```csharp
+var group = await api.Groups.GetGroupAsync("ИС-23-01");
+
+var query = new ScheduleQuery()
+    .WithGroup(group);
+```
+#### WithCab
+```ScheduleQuery.WithCab(IResultOutCab cab)``` устанавливает кабинет для которого необходимо получить расписание.
+Чтобы получить объект кабинета воспользуйтесь [API Кабинеты/Корпуса](/ru/usage/cabs)
+```csharp
+var cab = api.Cabs.GetCab("5/515");
+
+var query = new ScheduleQuery()
+    .WithCab(cab);
+```
+#### WithSearchType
+```ScheduleQuery.WithSearchType(ScheduleSearchType searchType, string/long id)``` устанавливает тип и его идентификатор для которого необходимо получить расписание.
+
+Тип определяет тип поиска:
+* Преподаватель - ```ScheduleSearchType.Employee```
+* Группа - ```ScheduleSearchType.Group```
+* Кабинет - ```ScheduleSearchType.Cab```
+
+Идентификатор можно получить из объектов конкретных API.
+```csharp
+var query = new ScheduleQuery()
+    .WithSearchType(ScheduleSearchType.Employee, 2294);
+```
+#### WithAllForSearchType
+```ScheduleQuery.WithAllForSearchType(ScheduleSearchType searchType)``` устанавливает тип для которого необходимо получить все расписание.
+Данный способ поиска будет возвращать результаты для всех идентификаторов выбранного типа (к примеру для всех существующих кабинетов)
+
+<Callout type="warning" emoji="⚠️">
+  **Внимание!** Данный способ поиска создает большое количество запросов к REST API.
+  Рекомендуется увеличить задержку между запросами при помощи метода ```ScheduleQuery.WithDelay``` во избежания проблем
+</Callout>
+```csharp
+var query = new ScheduleQuery()
+    .WithAllForSearchType(ScheduleSearchType.Employee);
+```
+#### WithShowImportant
+```ScheduleQuery.WithShowImportant(bool show)``` включает добавление урока "Разговоры о важном" в результаты поиска.
+По умолчанию включено
+```csharp
+var query = new ScheduleQuery().WithShowImportant(false);
+```
+#### WithShowRussianHorizon
+```ScheduleQuery.WithShowRussianHorizon(bool show)``` включает добавление урока "Россия Мои горизонты" в результаты поиска.
+По умолчанию включено
+```csharp
+var query = new ScheduleQuery().WithShowRussianHorizon(false);
+```
+#### WithOverrideCache
+```ScheduleQuery.WithOverrideCache(bool overrideCache)``` включает игнорирование кэша расписания.
+По умолчанию выключено. Подробнее про кэш [тут](/ru/cache)
+```csharp
+var query = new ScheduleQuery().WithOverrideCache(true);
+```
+#### WithDelay
+```ScheduleQuery.WithDelay(int delay)``` устанавливает время задержки между запросами к REST API.
+По умолчанию время установленно на 700 миллисекунд
+```csharp
+var query = new ScheduleQuery().WithDelay(1000); // 1 сек
+```
+
+## Получить расписание
+```Schedule.GetSchedule``` вернет список расписания на основе запроса
+<Tabs items={['Синхронно', 'Асинхронно']}>
+  <Tabs.Tab>
+    ```csharp
+    var schedule = api.Cabs.GetSchedule(query);
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```csharp
+    var schedule = await api.Cabs.GetScheduleAsync(query);
+    ```
+  </Tabs.Tab>
+</Tabs>
